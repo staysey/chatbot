@@ -72,16 +72,22 @@ export function useChats({ enabled }) {
   }, []);
 
   const startNewChat = useCallback(async () => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
     const created = await createChat(headers);
-    if (!created?.id) return;
+    if (!created?.id) {
+      return;
+    }
     setChats((prev) => [created, ...prev]);
     setSelectedChatId(created.id);
   }, [enabled, headers]);
 
   const deleteChat = useCallback(
     async (chatId) => {
-      if (!enabled) return;
+      if (!enabled) {
+        return;
+      }
       await deleteChatApi(headers, chatId);
 
       let remaining = [];

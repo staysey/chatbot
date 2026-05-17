@@ -8,7 +8,7 @@ import {
   setGuestMode,
 } from "../lib/guestSession";
 
-// setGuestMode — write to localStorage, isGuestMode - read from localStorage
+// Guest flag from localStorage; cleared on sign-in, synced across tabs
 export function useGuestMode() {
   const { user, authReady } = useAuth();
   const [guestActive, setGuestActive] = useState(() => isGuestMode());

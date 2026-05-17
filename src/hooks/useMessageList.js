@@ -141,6 +141,7 @@ function useSignedInMessages(enabled, chatId, auth, api, setLoading) {
   return { appendMessage, updateLastUserMessage };
 }
 
+// Pick guest (localStorage) or signed-in (API + realtime) message source for a chat
 export function useMessageList(chatId, isGuest) {
   const { apiAuthHeaders, session, user } = useAuth();
   const token = session?.access_token;

@@ -32,6 +32,7 @@ function isAcceptedFile(file, accept) {
   });
 }
 
+// File picker state: add/remove files, previews, accept rules, hidden input props
 export function useFileUpload(options = {}) {
   const {
     maxFiles = Number.POSITIVE_INFINITY,

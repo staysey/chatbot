@@ -16,6 +16,7 @@ import {
 } from "../lib/guestSession";
 import { useMessageList } from "./useMessageList";
 
+// Send a turn (user message + AI reply), guest limits, and loading/error state
 export function useChatMessaging(chatId, isGuest = false) {
   const {
     messages,

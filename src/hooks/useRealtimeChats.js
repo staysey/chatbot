@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { fetchChats } from "../lib/api";
 import { subscribePostgresChanges } from "../lib/realtime";
 
+// Refetch chat list when any of the user's chats change in the DB
 export function useRealtimeChats({ authReady, userId, token, onChats }) {
   useEffect(() => {
     if (!authReady || !userId || !token) return;
