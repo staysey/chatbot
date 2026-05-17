@@ -2,6 +2,8 @@
 
 A full-stack AI chat application with multi-conversation support, file attachments, and optional guest access. Signed-in users get persistent chats backed by Supabase; guests can try the assistant locally with a small free quota before signing up.
 
+**Live demo:** [https://chatbot-xi-ochre-65.vercel.app](https://chatbot-xi-ochre-65.vercel.app)
+
 ## Features
 
 - **AI conversations** — Powered by [Google Gemini](https://ai.google.dev/) (`gemini-2.5-flash`) with text and file inputs
