@@ -4,7 +4,10 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import { Button } from "@/components/ui/button";
 import { UPLOAD_ACCEPT, UPLOAD_LABEL, isImageFile } from "@/lib/allowedUploads";
 
-const FileUploader = forwardRef(function FileUploader({ onFilesChange }, ref) {
+const FileUploader = forwardRef(function FileUploader(
+  { onFilesChange, disabled = false },
+  ref,
+) {
   const onFilesChangeRef = useRef(onFilesChange);
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const FileUploader = forwardRef(function FileUploader({ onFilesChange }, ref) {
         type="button"
         className="h-7 px-2 text-xs"
         onClick={openFileDialog}
-        disabled={files.length >= 5}
+        disabled={disabled || files.length >= 5}
       >
         {files.length ? "Add file" : UPLOAD_LABEL}
       </Button>

@@ -46,7 +46,11 @@ export default function ChatInput({
       </div>
 
       <div className="flex w-full flex-wrap items-center justify-between gap-2">
-        <FileUploader ref={uploadRef} onFilesChange={onFilesChange} />
+        <FileUploader
+          ref={uploadRef}
+          onFilesChange={onFilesChange}
+          disabled={isSending}
+        />
         <label className="flex cursor-pointer items-center gap-2 text-xs text-muted-foreground">
           <input
             type="checkbox"
