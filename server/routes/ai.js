@@ -5,7 +5,12 @@ import {
   UPLOAD_REJECTED_MESSAGE,
 } from "../lib/allowedUploads.js";
 
-export function createAiRoutes({ upload, gemini, optionalAuth, aiChatRateLimit }) {
+export function createAiRoutes({
+  upload,
+  gemini,
+  optionalAuth,
+  aiChatRateLimit,
+}) {
   const router = Router({ mergeParams: true });
 
   router.post(

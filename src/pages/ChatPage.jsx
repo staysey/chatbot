@@ -13,9 +13,10 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   const signedIn = Boolean(user);
-  const { chats, currentChatId, selectChat, startNewChat, deleteChat } = useChats({
-    enabled: signedIn,
-  });
+  const { chats, currentChatId, selectChat, startNewChat, deleteChat } =
+    useChats({
+      enabled: signedIn,
+    });
 
   const handleSignOut = async () => {
     await logout();

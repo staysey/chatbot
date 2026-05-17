@@ -1,9 +1,6 @@
 import { Router } from "express";
-import {
-  bearerToken,
-  supabaseAuth,
-  toClientSession,
-} from "../lib/supabaseAuth.js";
+import { bearerToken } from "../lib/supabase.js";
+import { supabaseAuth, toClientSession } from "../lib/supabaseAuth.js";
 
 export function createAuthRouter() {
   const router = Router();
@@ -58,10 +55,9 @@ export function createAuthRouter() {
 
     if (error) {
       const msg = error.message || "Sign up failed";
-      const friendly =
-        /already registered|already exists/i.test(msg)
-          ? "This email is already registered. Log in instead."
-          : msg;
+      const friendly = /already registered|already exists/i.test(msg)
+        ? "This email is already registered. Log in instead."
+        : msg;
       return res.status(400).json({ error: friendly });
     }
 

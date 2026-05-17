@@ -4,12 +4,6 @@ export function supabaseAuth() {
   return getSupabaseAdmin();
 }
 
-export function bearerToken(req) {
-  const h = req.headers.authorization;
-  if (typeof h !== "string" || !h.startsWith("Bearer ")) return null;
-  return h.slice(7);
-}
-
 export function toClientSession(session) {
   if (!session?.access_token) return null;
   return {

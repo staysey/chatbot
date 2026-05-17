@@ -79,7 +79,7 @@ export default function Auth({ onContinueAsGuest }) {
             {authError ? (
               <p className="text-destructive mb-4 text-sm">{authError}</p>
             ) : null}
-            <form id="auth2-form" onSubmit={handleSubmit}>
+            <form id="auth-form" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -117,7 +117,7 @@ export default function Auth({ onContinueAsGuest }) {
         ) : (
           <Button
             type="submit"
-            form="auth2-form"
+            form="auth-form"
             className="w-full"
             disabled={loading}
           >

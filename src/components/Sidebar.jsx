@@ -1,11 +1,7 @@
 import { useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
 function ChatList({
   chats,
@@ -21,7 +17,12 @@ function ChatList({
     <div className="flex h-full flex-col">
       <div className="flex shrink-0 items-center justify-between gap-2 border-b px-4 py-3">
         <span className="text-lg font-medium">Chats</span>
-        <Button type="button" size="sm" onClick={onStartChat} disabled={!canAddChat}>
+        <Button
+          type="button"
+          size="sm"
+          onClick={onStartChat}
+          disabled={!canAddChat}
+        >
           New Chat
         </Button>
       </div>

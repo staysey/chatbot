@@ -65,8 +65,10 @@ export function useChatMessaging(chatId, isGuest = false) {
       return;
     }
 
-    const { message, files, localAttachments, userMessage } =
-      buildTurnInput(text, pickedFiles);
+    const { message, files, localAttachments, userMessage } = buildTurnInput(
+      text,
+      pickedFiles,
+    );
     const signedIn = Boolean(!isGuest && token && activeChatId);
 
     appendMessage(userMessage);

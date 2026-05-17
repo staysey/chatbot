@@ -4,10 +4,11 @@ import ws from "ws";
 const supabaseUrl = process.env.SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-function tokenFromAuthHeader(authHeader) {
-  if (typeof authHeader !== "string" || !authHeader.startsWith("Bearer "))
-    return null;
-  return authHeader.slice(7);
+export function bearerToken(source) {
+  const header =
+    typeof source === "string" ? source : source?.headers?.authorization;
+  if (typeof header !== "string" || !header.startsWith("Bearer ")) return null;
+  return header.slice(7);
 }
 
 let serviceClient = null;
@@ -24,7 +25,7 @@ export function getSupabaseAdmin() {
 }
 
 export async function authenticateRequest(authHeader) {
-  const token = tokenFromAuthHeader(authHeader);
+  const token = bearerToken(authHeader);
   if (!token) return null;
 
   const supabase = getSupabaseAdmin();

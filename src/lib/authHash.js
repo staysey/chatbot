@@ -1,10 +1,10 @@
-/** Supabase email links redirect with session tokens in the URL hash. */
 export function parseAuthHash(hash) {
   if (!hash || hash.length < 2) return null;
 
-  const params = new URLSearchParams(hash.startsWith("#") ? hash.slice(1) : hash);
-  const error =
-    params.get("error_description") || params.get("error") || null;
+  const params = new URLSearchParams(
+    hash.startsWith("#") ? hash.slice(1) : hash,
+  );
+  const error = params.get("error_description") || params.get("error") || null;
 
   if (error) {
     return {

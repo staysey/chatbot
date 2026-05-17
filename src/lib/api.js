@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const API_BASE =
-  import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+export const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 export async function fetchChats(headers) {
   const { data } = await axios.get(`${API_BASE}/api/chats`, { headers });
@@ -22,10 +21,9 @@ export async function deleteChat(headers, chatId) {
 }
 
 export async function fetchMessages(headers, chatId) {
-  const { data } = await axios.get(
-    `${API_BASE}/api/chats/${chatId}/messages`,
-    { headers },
-  );
+  const { data } = await axios.get(`${API_BASE}/api/chats/${chatId}/messages`, {
+    headers,
+  });
   return Array.isArray(data) ? data : [];
 }
 

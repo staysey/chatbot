@@ -7,7 +7,6 @@ export const aiChatRateLimit = rateLimit({
   limit: (req) => (req.auth?.user ? 60 : 12),
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) =>
-    req.auth?.user?.id ?? ipKeyGenerator(req.ip),
+  keyGenerator: (req) => req.auth?.user?.id ?? ipKeyGenerator(req.ip),
   message: { error: "Too many requests. Please try again later." },
 });

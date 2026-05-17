@@ -9,10 +9,12 @@ export async function uploadMessageFiles(supabase, userId, chatId, files) {
     const safeName = (file.originalname || "file").replace(/[^\w.\-]+/g, "_");
     const path = `${userId}/${chatId}/${randomUUID()}-${safeName}`;
 
-    const { error } = await supabase.storage.from(BUCKET).upload(path, file.buffer, {
-      contentType: file.mimetype,
-      upsert: false,
-    });
+    const { error } = await supabase.storage
+      .from(BUCKET)
+      .upload(path, file.buffer, {
+        contentType: file.mimetype,
+        upsert: false,
+      });
 
     if (error) {
       console.error(error);

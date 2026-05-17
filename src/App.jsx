@@ -23,7 +23,7 @@ export default function App() {
     if (authReady && user) {
       navigate(ROUTES.chat, { replace: true });
     }
-  }, [authReady, user?.id, navigate]);
+  }, [authReady, user?.id, navigate, user]);
 
   if (!authReady) {
     return (
@@ -39,11 +39,7 @@ export default function App() {
         <Route
           path={ROUTES.login}
           element={
-            signedIn ? (
-              <Navigate to={ROUTES.chat} replace />
-            ) : (
-              <LoginPage />
-            )
+            signedIn ? <Navigate to={ROUTES.chat} replace /> : <LoginPage />
           }
         />
         <Route

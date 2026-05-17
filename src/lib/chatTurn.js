@@ -64,8 +64,14 @@ export async function runChatTurn({
     };
   }
 
+  let botMessage = {
+    text: ai.botMessage,
+    sender: "bot",
+    attachments: [],
+  };
+
   if (signedIn) {
-    await saveMessage(headers, {
+    botMessage = await saveMessage(headers, {
       chat_id: chatId,
       sender: "bot",
       content: ai.botMessage,
@@ -75,11 +81,7 @@ export async function runChatTurn({
   return {
     ok: true,
     savedUserMessage,
-    botMessage: {
-      text: ai.botMessage,
-      sender: "bot",
-      attachments: [],
-    },
+    botMessage,
     revoke: signedIn ? localAttachments : null,
   };
 }
@@ -94,11 +96,8 @@ export function applyTurnSuccess(
   { signedIn, updateLastUserMessage, appendMessage },
 ) {
   if (result.revoke) revokeAttachmentPreviews(result.revoke);
-  if (signedIn) {
-    if (result.savedUserMessage) {
-      updateLastUserMessage(result.savedUserMessage);
-    }
-    return;
+  if (signedIn && result.savedUserMessage) {
+    updateLastUserMessage(result.savedUserMessage);
   }
   appendMessage(result.botMessage);
 }

@@ -87,15 +87,15 @@ export default function Chat({ chatId, isGuest = false }) {
                 !isGuest &&
                 !loadingMessages &&
                 chatId && (
-                <Alert>
-                  <InfoIcon />
-                  <AlertTitle>No messages yet</AlertTitle>
-                  <AlertDescription>
-                    Start a conversation — your messages are saved when you are
-                    signed in.
-                  </AlertDescription>
-                </Alert>
-              )}
+                  <Alert>
+                    <InfoIcon />
+                    <AlertTitle>No messages yet</AlertTitle>
+                    <AlertDescription>
+                      Start a conversation — your messages are saved when you
+                      are signed in.
+                    </AlertDescription>
+                  </Alert>
+                )}
             </div>
           </ScrollArea>
         )}

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import {
   fetchSession,
@@ -140,7 +134,11 @@ function useAuthState() {
     setLoading(true);
     setAuthError(null);
 
-    const { session: next, error, message } = await signUpRequest(email, password);
+    const {
+      session: next,
+      error,
+      message,
+    } = await signUpRequest(email, password);
 
     setLoading(false);
 

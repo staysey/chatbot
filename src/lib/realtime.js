@@ -1,8 +1,8 @@
-import { supabase } from "./supabase.js"
+import { supabase } from "./supabase.js";
 
 export function syncRealtimeAuth(accessToken) {
   if (accessToken) {
-    supabase.realtime.setAuth(accessToken)
+    supabase.realtime.setAuth(accessToken);
   }
 }
 
@@ -13,25 +13,25 @@ export function subscribePostgresChanges({
   filter,
   onChange,
 }) {
-  syncRealtimeAuth(accessToken)
+  syncRealtimeAuth(accessToken);
 
   const changeConfig = {
     event: "*",
     schema: "public",
     table,
-  }
-  if (filter) changeConfig.filter = filter
+  };
+  if (filter) changeConfig.filter = filter;
 
   const channel = supabase
     .channel(channelName)
     .on("postgres_changes", changeConfig, onChange)
     .subscribe((status, err) => {
       if (status === "CHANNEL_ERROR") {
-        console.error(`Realtime ${channelName}:`, err)
+        console.error(`Realtime ${channelName}:`, err);
       }
-    })
+    });
 
   return () => {
-    void supabase.removeChannel(channel)
-  }
+    void supabase.removeChannel(channel);
+  };
 }

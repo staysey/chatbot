@@ -1,4 +1,3 @@
-/** MIME types supported by Gemini inlineData (see Google Gemini input file docs). */
 const ALLOWED_MIME_TYPES = new Set([
   "application/pdf",
   "image/jpeg",

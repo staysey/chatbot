@@ -1,4 +1,3 @@
-/** Shared across tabs so Realtime picks up login from another tab. */
 export const AUTH_SESSION_KEY = "chatbot_auth_session";
 
 export function loadStoredSession() {
