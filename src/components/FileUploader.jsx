@@ -1,24 +1,24 @@
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
 import { useFileUpload } from "@/hooks/useFileUpload";
 import { Button } from "@/components/ui/button";
-import { UPLOAD_ACCEPT, UPLOAD_LABEL } from "@/lib/allowedUploads";
+import { UPLOAD_ACCEPT, UPLOAD_LABEL, isImageFile } from "@/lib/allowedUploads";
 
-const isImage = (file) => file?.type?.startsWith("image/");
-
-export default function FileUploader({ onFilesChange, isSent }) {
+const FileUploader = forwardRef(function FileUploader({ onFilesChange }, ref) {
   const onFilesChangeRef = useRef(onFilesChange);
 
   useEffect(() => {
     onFilesChangeRef.current = onFilesChange;
   }, [onFilesChange]);
 
-  const [{ files }, { removeFile, openFileDialog, getInputProps }] =
+  const [{ files }, { removeFile, openFileDialog, getInputProps, clearFiles }] =
     useFileUpload({
       accept: UPLOAD_ACCEPT,
       multiple: true,
       maxFiles: 5,
     });
+
+  useImperativeHandle(ref, () => ({ clear: clearFiles }), [clearFiles]);
 
   useEffect(() => {
     const picked = files
@@ -26,12 +26,6 @@ export default function FileUploader({ onFilesChange, isSent }) {
       .filter(Boolean);
     onFilesChangeRef.current?.(picked);
   }, [files]);
-
-  useEffect(() => {
-    if (isSent && files.length > 0) {
-      files.forEach((upload) => removeFile(upload.id));
-    }
-  }, [isSent, files, removeFile]);
 
   return (
     <div className="flex max-w-full flex-col items-start gap-2">
@@ -42,7 +36,7 @@ export default function FileUploader({ onFilesChange, isSent }) {
               key={upload.id}
               className="relative flex max-w-[140px] items-center gap-1 rounded-xl border bg-muted px-2 py-1 text-xs shadow-sm"
             >
-              {isImage(upload.file) ? (
+              {isImageFile(upload.file) ? (
                 <img
                   src={upload.preview}
                   alt=""
@@ -82,4 +76,6 @@ export default function FileUploader({ onFilesChange, isSent }) {
       />
     </div>
   );
-}
+});
+
+export default FileUploader;

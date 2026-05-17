@@ -1,11 +1,13 @@
 import { useCallback, useRef, useState } from "react";
 
+import { fileExtension, isImageFile } from "../lib/allowedUploads.js";
+
 function createFileId(file) {
   return `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
 function createPreview(file) {
-  return file.type.startsWith("image/") ? URL.createObjectURL(file) : null;
+  return isImageFile(file) ? URL.createObjectURL(file) : null;
 }
 
 function revokePreview(upload) {
@@ -19,7 +21,7 @@ function isAcceptedFile(file, accept) {
 
   const acceptedTypes = accept.split(",").map((type) => type.trim());
   const fileType = file.type || "";
-  const extension = `.${file.name.split(".").pop()?.toLowerCase() ?? ""}`;
+  const extension = fileExtension(file);
 
   return acceptedTypes.some((type) => {
     if (type.startsWith(".")) {
@@ -114,5 +116,15 @@ export function useFileUpload(options = {}) {
     [accept, multiple, handleFileChange],
   );
 
-  return [{ files }, { removeFile, openFileDialog, getInputProps }];
+  const clearFiles = useCallback(() => {
+    setFiles((prev) => {
+      prev.forEach(revokePreview);
+      return [];
+    });
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  }, []);
+
+  return [{ files }, { removeFile, openFileDialog, getInputProps, clearFiles }];
 }

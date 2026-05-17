@@ -1,5 +1,6 @@
 import { GUEST_CHAT_ID } from "../constants/guest.js";
 import { postAiChat, saveMessage } from "./api.js";
+import { getMockAiResponse } from "./mockResponse.js";
 import {
   createLocalAttachments,
   revokeAttachmentPreviews,
@@ -37,6 +38,7 @@ export async function runChatTurn({
   message,
   files,
   localAttachments,
+  useMockResponse = false,
 }) {
   let savedUserMessage = null;
 
@@ -49,12 +51,14 @@ export async function runChatTurn({
     });
   }
 
-  const ai = await postAiChat(
-    headers,
-    signedIn ? chatId : GUEST_CHAT_ID,
-    message,
-    files,
-  );
+  const ai = useMockResponse
+    ? await getMockAiResponse()
+    : await postAiChat(
+        headers,
+        signedIn ? chatId : GUEST_CHAT_ID,
+        message,
+        files,
+      );
 
   if (ai?.isError) {
     return {

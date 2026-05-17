@@ -17,7 +17,11 @@ import {
 import { useMessageList } from "./useMessageList";
 
 // Send a turn (user message + AI reply), guest limits, and loading/error state
-export function useChatMessaging(chatId, isGuest = false) {
+export function useChatMessaging(
+  chatId,
+  isGuest = false,
+  useMockResponse = false,
+) {
   const {
     messages,
     appendMessage,
@@ -82,6 +86,7 @@ export function useChatMessaging(chatId, isGuest = false) {
         message,
         files,
         localAttachments,
+        useMockResponse,
       });
 
       if (!result.ok) {

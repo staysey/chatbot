@@ -1,3 +1,5 @@
+import { isImageFile } from "./allowedUploads.js";
+
 export function isBlobPreview(url) {
   return typeof url === "string" && url.startsWith("blob:");
 }
@@ -19,6 +21,6 @@ export function revokeAllMessagePreviews(messages) {
 export function createLocalAttachments(files) {
   return files.map((file) => ({
     name: file.name,
-    preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+    preview: isImageFile(file) ? URL.createObjectURL(file) : null,
   }));
 }

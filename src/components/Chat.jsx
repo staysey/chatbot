@@ -15,6 +15,8 @@ import GuestLimitBanner from "./GuestLimitBanner.jsx";
 import MessageBubble from "./MessageBubble.jsx";
 
 export default function Chat({ chatId, isGuest = false }) {
+  const [useMockResponse, setUseMockResponse] = useState(false);
+
   const {
     messages,
     sendMessage,
@@ -22,15 +24,15 @@ export default function Chat({ chatId, isGuest = false }) {
     chatError,
     guestQuestionsLeft,
     isSending,
-  } = useChatMessaging(chatId, isGuest);
+  } = useChatMessaging(chatId, isGuest, useMockResponse);
 
   const guestLimitReached = isGuest && guestQuestionsLeft === 0;
 
   const chatRef = useRef(null);
+  const uploadRef = useRef(null);
 
   const [input, setInput] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [isSent, setIsSent] = useState(false);
 
   const handleSend = async () => {
     if (!input.trim() && selectedFiles.length === 0) return;
@@ -41,7 +43,7 @@ export default function Chat({ chatId, isGuest = false }) {
       console.error("Error sending message:", error);
     } finally {
       setSelectedFiles([]);
-      setIsSent(true);
+      uploadRef.current?.clear();
       setInput("");
     }
   };
@@ -53,7 +55,6 @@ export default function Chat({ chatId, isGuest = false }) {
 
   const handleFilesChange = (files) => {
     setSelectedFiles(files);
-    setIsSent(false);
   };
 
   return (
@@ -109,7 +110,9 @@ export default function Chat({ chatId, isGuest = false }) {
           guestLimitReached={guestLimitReached}
           selectedFiles={selectedFiles}
           onFilesChange={handleFilesChange}
-          isSent={isSent}
+          uploadRef={uploadRef}
+          useMockResponse={useMockResponse}
+          onMockResponseChange={setUseMockResponse}
         />
       </CardFooter>
     </Card>
